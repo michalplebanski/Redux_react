@@ -1,9 +1,9 @@
-import { ADD_COMMENT, EDIT_COMMENT, REMOVE_COMMENT, THUMB_UP_COMMENT, THUMB_DOWN_COMMENT } from './actions';
+import * as constants from '../constants/index.js';
 
 function comments(state = [], action) {
     switch(action.type) {
         
-        case ADD_COMMENT:
+        case constants.ADD_COMMENT:
             return [{
                 id: action.id,
                 text: action.text,
@@ -11,18 +11,18 @@ function comments(state = [], action) {
             }
             , ...state];
 
-        case REMOVE_COMMENT:
+        case constants.REMOVE_COMMENT:
             return state.filter(comment => comment.id !== action.id);
 
-        case EDIT_COMMENT:
+        case constants.EDIT_COMMENT:
             return state.map(comment => {
                 return comment.id === action.id ? Object.assign({}, comment, { text: action.text }) : comment });
 
-        case THUMB_UP_COMMENT:
+        case constants.THUMB_UP_COMMENT:
             return state.map(comment => { 
                 return comment.id === action.id ? Object.assign({}, comment, { votes: comment.votes + 1 }) : comment });
 
-        case THUMB_DOWN_COMMENT:
+        case constants.THUMB_DOWN_COMMENT:
             return state.map(comment => { 
                 return comment.id === action.id ? Object.assign({}, comment, { votes: comment.votes - 1 }) : comment });
 
